@@ -31,8 +31,8 @@ function About() {
             </p>
 
             <div>
-                <a href="#" className="text-decoration-none">Github repo</a><br/>
-                <a href="#" className="text-decoration-none">My Github Profile: Simphiwe Nkabinde</a>
+                <a href="https://github.com/simphiwe-nkabinde/MyCars-app" className="text-decoration-none">Github repo</a><br/>
+                <a href="https://github.com/simphiwe-nkabinde" className="text-decoration-none">My Github Profile: Simphiwe Nkabinde</a>
             </div>
 
             <div className="text-muted mt-5 text-center">
