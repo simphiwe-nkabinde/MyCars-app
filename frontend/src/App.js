@@ -3,7 +3,7 @@ import CarNew from './components/CarNew';
 import Login from "./components/Login";
 import About from "./components/About";
 import './App.css';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, Route, Link} from 'react-router-dom';
 
 function App() {
   return (
@@ -34,7 +34,10 @@ function App() {
       </BrowserRouter>
 
       <footer className="bg-secondary text-center py-2">
-        <a href="/about" className="text-decoration-none text-light fs-3 fw-light">About</a>        
+        <Link to="/about">
+          <p className="text-decoration-none text-light fs-3 fw-light">About</p>
+        </Link>
+                
       </footer>
     </div>
   );
