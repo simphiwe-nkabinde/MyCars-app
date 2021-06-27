@@ -60,10 +60,21 @@ class CarNew extends React.Component {
     //POST request of new car using fetch API
     handleSubmit(e) {
         e.preventDefault()
+        //get new car data from DOM elements
+        const newCar = {
+            make: document.getElementById('car-new-make').innerHTML,
+            model: document.getElementById('car-new-model').innerHTML,
+            country: document.getElementById('car-new-country').innerHTML,
+            body: document.getElementById('car-new-body').innerHTML,
+            drive: document.getElementById('car-new-drive').innerHTML,
+            Transmission: document.getElementById('car-new-transmission').innerHTML,
+            doors: document.getElementById('car-new-doors').innerHTML,
+            image: document.getElementById('car-new-image').innerHTML
+        }
         //POST REQUEST to custom local api
         fetch("/car/"+ sessionStorage.user, {
             method: "POST",
-            body: JSON.stringify(this.state.carInfo),
+            body: JSON.stringify(newCar),
             headers: {"Content-type": "application/json; charset=UTF-8"}
         })
         .then(resp => resp.text())
@@ -75,7 +86,8 @@ class CarNew extends React.Component {
                 image: '',
                 carInfo: {},
                 carIsLoaded: false
-            })
+            });
+            document.getElementById('car-new-display-image').attributes.src.value = "";
 
         },(error) => {console.log(error)});
     }
@@ -100,7 +112,8 @@ class CarNew extends React.Component {
             const parser = new DOMParser();
             const xml = parser.parseFromString(data, "application/xhtml+xml");
             const imageUrl = xml.documentElement.textContent;
-            this.setState({image: imageUrl})
+            document.getElementById('car-new-image').innerHTML = imageUrl
+            document.getElementById('car-new-display-image').attributes.src.value = imageUrl
         },
         (error) => {this.setState({error})})
     }
@@ -114,18 +127,14 @@ class CarNew extends React.Component {
         .then(resp => resp.json())
         .then(data => {
             const modelData = data['Trims'][0];
-            this.setState({
-                carInfo: {
-                    make: modelData['model_make_id'],
-                    model: modelData['model_name'],
-                    country: modelData['make_country'],
-                    body: modelData['model_body'],
-                    drive: modelData['model_drive'],
-                    transmission: modelData['model_transmission_type'],
-                    doors: modelData['model_doors'],
-                    image: this.state.image
-                }
-            });
+            document.getElementById('car-new-make').innerHTML = modelData['model_make_id']
+            document.getElementById('car-new-model').innerHTML = modelData['model_name']
+            document.getElementById('car-new-country').innerHTML = modelData['make_country']
+            document.getElementById('car-new-body').innerHTML = modelData['model_body']
+            document.getElementById('car-new-drive').innerHTML = modelData['model_drive']
+            document.getElementById('car-new-transmission').innerHTML = modelData['model_transmission_type']
+            document.getElementById('car-new-doors').innerHTML = modelData['model_doors']
+
             this.setState({carIsLoaded: true})
         },
         (error) => {this.setState({error})})
@@ -164,53 +173,52 @@ class CarNew extends React.Component {
                         </select>
                     </div>
 
-                    <img 
-                        src={this.state.image} 
+                    <img id="car-new-display-image"
+                        src=""
                         className="img-thumbnail mx-auto my-2" 
                         alt=""
                         style={{maxWidth:'60%'}}
                     />
                     
-                    {(this.state.carIsLoaded) ?
-                    <div className="table-responsie">
+                    {/* hide table if car data is not loaded */}
+                    <div className={this.state.carIsLoaded ? "table-responsive" : "d-none"}>
                         <table className="table table-striped table-bordered ms-auto me-auto">
                             <tbody className="text-center">
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Make</td>
-                                    <td>{this.state.carInfo.make}</td>
+                                    <td id="car-new-make"></td>
                                 </tr>
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Model</td>
-                                    <td>{this.state.carInfo.model}</td>
+                                    <td id="car-new-model"></td>
                                 </tr>
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Country of Origin</td>
-                                    <td>{this.state.carInfo.country}</td>
+                                    <td id="car-new-country"></td>
                                 </tr>
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Body</td>
-                                    <td>{this.state.carInfo.body}</td>
+                                    <td id="car-new-body"></td>
                                 </tr>
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Drive</td>
-                                    <td>{this.state.carInfo.drive}</td>
+                                    <td id="car-new-drive"></td>
                                 </tr>
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Transmission</td>
-                                    <td>{this.state.carInfo.transmission}</td>
+                                    <td id="car-new-transmission"></td>
                                 </tr>  
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Doors</td>
-                                    <td>{this.state.carInfo.doors}</td>
+                                    <td id="car-new-doors"></td>
                                 </tr>
                                 <tr className="mb-3 col-md-6"> 
                                     <td>Image Url</td>
-                                    <td className="text-break">{this.state.image}</td>
+                                    <td id="car-new-image" className="text-break"></td>
                                 </tr>                            
                             </tbody>
                         </table>
                     </div>
-                    :   <span></span>}
 
                     <button type="submit" className="btn btn-success">Save</button>
                 </form>           
