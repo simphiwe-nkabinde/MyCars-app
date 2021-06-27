@@ -94,7 +94,7 @@ class CarNew extends React.Component {
     //fetches image url of car by make and model and sets it in state. uses carimagery API (https://www.carimagery.com/)    
     fetchImage(make, newModel) {
         //GET REQUEST to 3rd party api
-        fetch('http://www.carimagery.com/api.asmx/GetImageUrl?searchTerm=' + make + '+' + newModel)
+        fetch('https://www.carimagery.com/api.asmx/GetImageUrl?searchTerm=' + make + '+' + newModel)
         .then(resp =>  resp.text())
         .then(data => {
             const parser = new DOMParser();
