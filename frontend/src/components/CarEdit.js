@@ -10,7 +10,7 @@ function CarEdit(props) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title"><span className="text-success">Edit info: </span>{props.car.make + ' ' + props.car.model}</h5>
-                            <button type="button" className="btn-close" aria-label="Close" onClick={props.handleClick_editClose}></button>
+                            <button type="button" className="btn-close" aria-label="Close" onClick={props.handleClickOnEditClose}></button>
                         </div>
                         <div className="modal-body">
                             <p id="edit-alert" className="text-info"></p>
@@ -61,7 +61,7 @@ function CarEdit(props) {
                             </table>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-success w-100" data-bs-dismiss="modal" onClick={props.handleClick_update}>save changes</button>
+                            <button type="button" className="btn btn-success w-100" data-bs-dismiss="modal" onClick={props.handleClickOnUpdate}>save changes</button>
                         </div>
                     </div>
                 </div>

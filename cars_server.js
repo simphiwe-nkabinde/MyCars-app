@@ -3,7 +3,9 @@ const fs = require('fs')
 const path = require('path')
 const {v4: uuidv4} = require('uuid')
 const app = express()
+const helmet = require('helmet')
 
+app.use(helmet())
 
 app.use(express.static(path.join(__dirname, 'frontend/build')));
 
@@ -135,15 +137,6 @@ app.delete('/car/:username', (req, resp) => {
     const id = req.query.id
     resp.send(deleteCar(username, id))
 });
-
-
-
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static(path.join(__dirname, 'frontend/build')));
-//     app.get('/*',(req,res)=> {res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
-// });
-// }
-
 
 
 app.listen(PORT, console.log('server running'))

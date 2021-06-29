@@ -14,19 +14,19 @@ class CarGroup extends React.Component {
             cars: [],
             focusCar: {}
         };
-        this.handleClick_delete = this.handleClick_delete.bind(this)
-        this.handleClick_focus = this.handleClick_focus.bind(this)
-        this.handleClick_edit = this.handleClick_edit.bind(this)
-        this.handleClick_editClose = this.handleClick_editClose.bind(this)
-        this.handleClick_update = this.handleClick_update.bind(this)
-        this.fetchCars_setInState = this.fetchCars_setInState.bind(this)
+        this.handleClickOnDelete = this.handleClickOnDelete.bind(this)
+        this.handleClickOnFocus = this.handleClickOnFocus.bind(this)
+        this.handleClickOnEdit = this.handleClickOnEdit.bind(this)
+        this.handleClickOnEditClose = this.handleClickOnEditClose.bind(this)
+        this.handleClickOnUpdate = this.handleClickOnUpdate.bind(this)
+        this.getUserCarsThenSetInState = this.getUserCarsThenSetInState.bind(this)
     }
     //when page loads, 
     componentDidMount() {
-        this.fetchCars_setInState()
+        this.getUserCarsThenSetInState()
     }
     //deletes car from collection. uses api
-    handleClick_delete(e) {
+    handleClickOnDelete(e) {
         e.preventDefault();
         const id = e.currentTarget.id
         //DELETE REQUEST to custom local api
@@ -41,7 +41,7 @@ class CarGroup extends React.Component {
                 alertElement.classList.add('show')                
             }
         })
-        this.fetchCars_setInState()
+        this.getUserCarsThenSetInState()
     }
 
     /*takes car id of car that has been clicked on from CarCard component.
@@ -49,7 +49,7 @@ class CarGroup extends React.Component {
     *sets found car obj as 'state.focusCar'
     *simulates click to display bootstrap modal of CarFocus component.
     */
-    handleClick_focus(e) {
+    handleClickOnFocus(e) {
         e.preventDefault();
         const id = e.currentTarget.id
         const carsArr = this.state.cars
@@ -60,7 +60,7 @@ class CarGroup extends React.Component {
         document.getElementById('focusModalBtnLaunch').click()
     }
     //renders CarEdit component modal with car info for editing
-    handleClick_edit(e) {
+    handleClickOnEdit(e) {
         e.preventDefault()
         const id = e.currentTarget.id
         const carsArr = this.state.cars
@@ -70,34 +70,26 @@ class CarGroup extends React.Component {
         //create and render modal component to DOM
         let editModal = <CarEdit 
                             car={car} 
-                            handleClick_editClose={this.handleClick_editClose}
-                            handleClick_update={this.handleClick_update}
+                            handleClickOnEditClose={this.handleClickOnEditClose}
+                            handleClickOnUpdate={this.handleClickOnUpdate}
                         />
         ReactDOM.render(editModal, document.getElementById('editModal-container'));
     }
     //removes CarEdit component modal from DOM
-    handleClick_editClose() {
+    handleClickOnEditClose() {
         unmountComponentAtNode(document.getElementById('editModal-container'))
     }
 
-    handleClick_update() {
-        //new updated values from CarEdit component
-        const id = document.getElementById('edit-id').value
-        const country = document.getElementById('edit-country').value
-        const body = document.getElementById('edit-body').value
-        const drive = document.getElementById('edit-drive').value
-        const transmission = document.getElementById('edit-transmission').value
-        const doors = document.getElementById('edit-doors').value
-        const image = document.getElementById('edit-image').value
+    handleClickOnUpdate() {
         //object with updated values to be sent in API post request
         const updateInfo = {
-            id: id,
-            country: country,
-            body: body,
-            drive: drive,
-            transmission: transmission,
-            doors: doors,
-            image: image,
+            id: document.getElementById('edit-id').value,
+            country: document.getElementById('edit-country').value,
+            body: document.getElementById('edit-body').value,
+            drive: document.getElementById('edit-drive').value,
+            transmission: document.getElementById('edit-transmission').value,
+            doors: document.getElementById('edit-doors').value,
+            image: document.getElementById('edit-image').value,
         }
         //POST REQUEST to cusotm local api
         fetch("/car/"+ sessionStorage.user, {
@@ -115,7 +107,7 @@ class CarGroup extends React.Component {
     }
 
     //this.state.user is set from sessionStorage.user data. user's car array is fetched from the API and set to state
-    fetchCars_setInState() {
+    getUserCarsThenSetInState() {
         if (sessionStorage.user) {
             //GET REQUEST to custom local api
             fetch('/'+sessionStorage.user)
@@ -146,9 +138,9 @@ class CarGroup extends React.Component {
             carsDisplay = carsArr.map(carObj => 
                 <CarCard key={carObj.id}
                     car={carObj} 
-                    handleClick_delete={this.handleClick_delete} 
-                    handleClick_focus={this.handleClick_focus}
-                    handleClick_edit={this.handleClick_edit}
+                    handleClickOnDelete={this.handleClickOnDelete} 
+                    handleClickOnFocus={this.handleClickOnFocus}
+                    handleClickOnEdit={this.handleClickOnEdit}
                 />
                 );   
             }
