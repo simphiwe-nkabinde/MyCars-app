@@ -5,18 +5,36 @@ function About() {
         <div>
             <h1 className="text-center">About</h1>
 
-            <p className="lead">
-                My Cars App is a simple front and backend app built with <span className="text-info">Express</span> and <span className="text-info">React</span> JavaScript.
-            </p>
+            <p className="lead">This app is part of a school task submission in line with given criteria. The following is a summary of the Task instructions and criteria:</p>
+            <ul className="rounded task-list py-3">
+                <li>
+                    Create a Restful API using Express that will allow the user to store a list of cars.
+                </li>
+                <li>
+                    The user should be able to make HTTP Get, Post, Delete and Put requests to show, add, delete or Update data respectively.
+                </li>
+                <li>
+                    Create an attractive React front-end that can be used to interact with the cars 
+                    API you built with Express.
+                    <ul>
+                        <li>
+                            You should be able to use your React front-end to get a list of cars,
+                            add additional cars to the list, modify the details about a specific car
+                            and delete a car from the list.
+                        </li>
+                        <li>
+                            For a bonus challenge, make one of the car properties a URL to an
+                            image and display this image wherever you list a car item on your
+                            frontend.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Deploy this app to Heroku.
+                </li>
+            </ul>
 
-            <p>
-                The backend uses a <strong>custom Restful API</strong> to serve users their car collection data. The 
-                data is stored in json files on the server. The API allows a user to <strong>Create, Read, Update, and Delete </strong>
-                data from their car collection file stored on the server. Each user's car collection is stored in a seperate 
-                json file as an array of car objects. When a user logs in with their username they have access to their car collection.
-            </p>
-
-            <p>The frontend uses 2 <span className="text-info">Open API's</span></p>
+            <p>The frontend uses 2 Open API's:</p>
             <ul>
                 <li>
                     <a href="https://www.carimagery.com/">Car Imagery API</a>:  allows access to car stock images based on the make and model. returns an image url embedded in <code>XML</code>.

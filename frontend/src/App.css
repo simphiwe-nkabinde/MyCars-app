@@ -70,6 +70,11 @@ body {
   background: white;
   color: inherit;
 }
+.task-list {
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  color: #004085;
+}
 
 footer {
   clear: both;
